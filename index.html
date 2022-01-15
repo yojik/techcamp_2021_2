@@ -2,10 +2,39 @@
 
 <head>
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="//unpkg.com/alpinejs" defer></script>
+    <script>
+        const scene = () => {
+            return {
+                cameraPos: "0 1 0",
+
+                next() {
+                    const pos = strToMap(this.cameraPos)
+                    pos.x = pos.x + 1.5
+                    this.cameraPos = mapToStr(pos)
+                },
+            }
+        }
+        function strToMap(posStr) {
+            const map = posStr.split(' ');
+            return {
+                x: Number(map[0]),
+                y: Number(map[1]),
+                z: Number(map[2])
+            }
+        }
+        function mapToStr(map) {
+            return map.x + " " + map.y + " " + map.z
+        }
+
+
+    </script>
+
+
 </head>
 
 <body>
-    <a-scene>
+    <a-scene x-data="scene">
         <a-assets>
             <img id="siide001" src="dist/slide.001.png">
             <img id="siide002" src="dist/slide.002.png">
@@ -15,13 +44,16 @@
         </a-assets>
         <a-sky color="#ECECEC"></a-sky>
         <a-plane position="0 -1 1" rotation="-90 0 0" width="200" height="200" color="silver"></a-plane>
-        <a-plane position="0 1 -1" src="#siide001"></a-plane>
-        <a-plane position="1.5 1 -1" src="#siide002"></a-plane>
-        <a-plane position="3  1 -1" src="#siide003"></a-plane>
-        <a-plane position="4.5 1 -1" src="#siide004"></a-plane>
-        <a-plane position="6 1 -1" src="#siide005"></a-plane>
-        <a-camera position="0 1 0" cursor-visible="true" cursor-scale="2" cursor-color="#0095DD" cursor-opacity="0.5">
+
+        <a-plane @click="next" position="0 1 -1" src="#siide001"></a-plane>
+        <a-plane @click="next" position="1.5 1 -1" src="#siide002"></a-plane>
+        <a-plane @click="next" position="3  1 -1" src="#siide003"></a-plane>
+        <a-plane @click="next" position="4.5 1 -1" src="#siide004"></a-plane>
+        <a-plane @click="next" position="6 1 -1" src="#siide005"></a-plane>
+        <a-camera :position="cameraPos" cursor-visible="true" cursor-scale="2" cursor-color="#red" cursor-opacity="0.5">
+            <a-cursor></a-cursor>
         </a-camera>
+
 
 
     </a-scene>
