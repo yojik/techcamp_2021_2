@@ -1,13 +1,21 @@
 <html>
 
 <head>
-    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <script src="//unpkg.com/alpinejs" defer></script>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <script>
         const scene = () => {
             return {
-                cameraPos: "0 1 0",
-
+                cameraPos: "1 0 0",
+                slides: [{}],
+                test: "#sample001",
+                init() {
+                    for (let i = 1; i <= 17; i++) {
+                        this.slides.push({
+                            pos: "" + i * 1.5 + " 0 -2"
+                        })
+                    }
+                },
                 next() {
                     const pos = strToMap(this.cameraPos)
                     pos.x = pos.x + 1.5
@@ -41,15 +49,34 @@
             <img id="siide003" src="dist/slide.003.png">
             <img id="siide004" src="dist/slide.004.png">
             <img id="siide005" src="dist/slide.005.png">
+            <img id="siide006" src="dist/slide.006.png">
+            <img id="siide007" src="dist/slide.007.png">
+            <img id="siide008" src="dist/slide.008.png">
+            <img id="siide009" src="dist/slide.009.png">
+            <img id="siide010" src="dist/slide.010.png">
+            <img id="siide011" src="dist/slide.011.png">
+            <img id="siide012" src="dist/slide.012.png">
+            <img id="siide013" src="dist/slide.013.png">
+            <img id="siide014" src="dist/slide.014.png">
+            <img id="siide015" src="dist/slide.015.png">
+            <img id="siide016" src="dist/slide.016.png">
+            <img id="siide017" src="dist/slide.017.png">
+            <img id="siide018" src="dist/slide.018.png">
+            <img id="siide019" src="dist/slide.019.png">
         </a-assets>
         <a-sky color="#ECECEC"></a-sky>
         <a-plane position="0 -1 1" rotation="-90 0 0" width="200" height="200" color="silver"></a-plane>
 
-        <a-plane @click="next" position="0 1 -1" src="#siide001"></a-plane>
-        <a-plane @click="next" position="1.5 1 -1" src="#siide002"></a-plane>
-        <a-plane @click="next" position="3  1 -1" src="#siide003"></a-plane>
-        <a-plane @click="next" position="4.5 1 -1" src="#siide004"></a-plane>
-        <a-plane @click="next" position="6 1 -1" src="#siide005"></a-plane>
+        <a-plane @click="next" width="1.2" :position="slides[1].pos" src="#siide001"></a-plane>
+        <a-plane @click="next" width="1.2" :position="slides[2].pos" src="#siide002"></a-plane>
+        <a-plane @click="next" width="1.2" :position="slides[3].pos" src="#siide003"></a-plane>
+        <a-plane @click="next" width="1.2" :position="slides[4].pos" src="#siide004"></a-plane>
+        <a-plane @click="next" width="1.2" :position="slides[5].pos" src="#siide005"></a-plane>
+        <a-plane @click="next" width="1.2" :position="slides[6].pos" src="#siide006"></a-plane>
+        <a-plane @click="next" width="1.2" :position="slides[7].pos" src="#siide007"></a-plane>
+        <a-plane @click="next" width="1.2" :position="slides[8].pos" src="#siide008"></a-plane>
+
+
         <a-camera :position="cameraPos" cursor-visible="true" cursor-scale="2" cursor-color="#red" cursor-opacity="0.5">
             <a-cursor></a-cursor>
         </a-camera>
