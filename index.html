@@ -6,12 +6,14 @@
     <script>
         const scene = () => {
             return {
+                id: "#slide001",
                 cameraPos: "1 0 0",
                 slides: [{}],
                 test: "#sample001",
                 init() {
                     for (let i = 1; i <= 17; i++) {
                         this.slides.push({
+                            id: "#slide" + ('000' + i).slice(-3),
                             pos: "" + i * 1.5 + " 0 -2"
                         })
                     }
@@ -36,6 +38,13 @@
         }
 
 
+        // Slide用のコンポーネントだが、、特に使ってない
+        AFRAME.registerComponent('slide', {
+            init: function () {
+                console.log(this)
+            },
+        });
+
     </script>
 
 
@@ -44,44 +53,48 @@
 <body>
     <a-scene x-data="scene">
         <a-assets>
-            <img id="siide001" src="dist/slide.001.png">
-            <img id="siide002" src="dist/slide.002.png">
-            <img id="siide003" src="dist/slide.003.png">
-            <img id="siide004" src="dist/slide.004.png">
-            <img id="siide005" src="dist/slide.005.png">
-            <img id="siide006" src="dist/slide.006.png">
-            <img id="siide007" src="dist/slide.007.png">
-            <img id="siide008" src="dist/slide.008.png">
-            <img id="siide009" src="dist/slide.009.png">
-            <img id="siide010" src="dist/slide.010.png">
-            <img id="siide011" src="dist/slide.011.png">
-            <img id="siide012" src="dist/slide.012.png">
-            <img id="siide013" src="dist/slide.013.png">
-            <img id="siide014" src="dist/slide.014.png">
-            <img id="siide015" src="dist/slide.015.png">
-            <img id="siide016" src="dist/slide.016.png">
-            <img id="siide017" src="dist/slide.017.png">
-            <img id="siide018" src="dist/slide.018.png">
-            <img id="siide019" src="dist/slide.019.png">
+            <img id="grid" src="https://img.gs/bbdkhfbzkk/stretch/https://i.imgur.com/25P1geh.png"
+                crossorigin="anonymous">
+            <img id="sky" src="https://i.imgur.com/WqlqEkq.jpg" crossorigin="anonymous" />
+
+            <img id="slide001" src="dist/slide.001.png">
+            <img id="slide002" src="dist/slide.002.png">
+            <img id="slide003" src="dist/slide.003.png">
+            <img id="slide004" src="dist/slide.004.png">
+            <img id="slide005" src="dist/slide.005.png">
+            <img id="slide006" src="dist/slide.006.png">
+            <img id="slide007" src="dist/slide.007.png">
+            <img id="slide008" src="dist/slide.008.png">
+            <img id="slide009" src="dist/slide.009.png">
+            <img id="slide010" src="dist/slide.010.png">
+            <img id="slide011" src="dist/slide.011.png">
+            <img id="slide012" src="dist/slide.012.png">
+            <img id="slide013" src="dist/slide.013.png">
+            <img id="slide014" src="dist/slide.014.png">
+            <img id="slide015" src="dist/slide.015.png">
+            <img id="slide016" src="dist/slide.016.png">
+            <img id="slide017" src="dist/slide.017.png">
+            <img id="slide018" src="dist/slide.018.png">
+            <img id="slide019" src="dist/slide.019.png">
         </a-assets>
-        <a-sky color="#ECECEC"></a-sky>
-        <a-plane position="0 -1 1" rotation="-90 0 0" width="200" height="200" color="silver"></a-plane>
 
-        <a-plane @click="next" width="1.2" :position="slides[1].pos" src="#siide001"></a-plane>
-        <a-plane @click="next" width="1.2" :position="slides[2].pos" src="#siide002"></a-plane>
-        <a-plane @click="next" width="1.2" :position="slides[3].pos" src="#siide003"></a-plane>
-        <a-plane @click="next" width="1.2" :position="slides[4].pos" src="#siide004"></a-plane>
-        <a-plane @click="next" width="1.2" :position="slides[5].pos" src="#siide005"></a-plane>
-        <a-plane @click="next" width="1.2" :position="slides[6].pos" src="#siide006"></a-plane>
-        <a-plane @click="next" width="1.2" :position="slides[7].pos" src="#siide007"></a-plane>
-        <a-plane @click="next" width="1.2" :position="slides[8].pos" src="#siide008"></a-plane>
 
+        <template x-for="slide in slides">
+            <a-plane slide @click="next" width="1.2" :position="slide.pos" :src="slide.id"></a-plane>
+        </template>
 
         <a-camera :position="cameraPos" cursor-visible="true" cursor-scale="2" cursor-color="#red" cursor-opacity="0.5">
             <a-cursor></a-cursor>
         </a-camera>
 
 
+        <!-- <a-sky color="#ECECEC"></a-sky>
+        <a-plane position="0 -1 1" rotation="-90 0 0" width="200" height="200" color="silver"></a-plane>
+        -->
+        <a-entity position="0 0 0" geometry="primitive: plane; width: 10000; height: 10000;" rotation="-90 0 0"
+            material="src: #grid; repeat: 10000 10000; transparent: true; metalness:0.6; roughness: 0.4; sphericalEnvMap: #sky;">
+        </a-entity>
+        <a-sky src="#sky" rotation="0 -90 0"></a-sky>
 
     </a-scene>
 </body>
