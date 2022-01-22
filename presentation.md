@@ -140,28 +140,53 @@ BBCのシャーロックホームズ等で出てきます。
 # マークアップでプレゼン資料を作成
 
 
+## テキストエディタで普通にマークダウンを書きます
+
+(スクリーンショット)
+
+
 ---
 
 # 特定のディレクトリにjpgとして発行
 
+```
+Status: Downloaded newer image for marpteam/marp-cli:v1.5.0
+[  INFO ] Converting 1 markdown...
+[  INFO ] presentation.md => dist/slide.001.png
+[  INFO ] presentation.md => dist/slide.002.png
+[  INFO ] presentation.md => dist/slide.003.png
 
+```
 ---
 
-# ツールにて読みこみ
+
+# ツール(a-frame)による読み込み
+
+aipine.jsという軽量Webフレームワークも利用しています。
+```
+
+
+```
+
 
 ---
 # VR空間上のプレゼンツールとして発行
 
+
+スクリーンショット
 
 ---- 
 
 # 上記の作業をGithubActionとして自動化
 
 
+資料をpushすると自動発行
+
 ---- 
+
 # 応用
 
-スライドを観ている人同士をWebSorket/WebRTCで繋いでリアルタイムで反応を共有できたり、、
+## スライドを観ている人同士をWebSorket/WebRTCで繋いでリアルタイムで反応を共有できたり、、するかもしれない。
 
 
 ---- 
