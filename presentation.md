@@ -130,7 +130,7 @@ VR空間でマインドパレスを作成している人を見かけた。
 ## STEP1 マークダウンでプレゼンの中身を書いて
 ## STEP2 Marpというツールでスライド化
 ## STEP3 読み込んでVR空間に表示するHTMLを書いて
-## STEP4 GithubPagesで公開
+## STEP4 GithubPagesで公開する
 
 ---
 
