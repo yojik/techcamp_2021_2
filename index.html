@@ -6,14 +6,22 @@
     <script>
         const scene = () => {
             return {
-                id: "#slide001",
                 cameraPos: "1 0 0",
                 slides: [{}],
-                test: "#sample001",
                 init() {
+                    let resourceCount = 0
+                    const images = document.querySelectorAll("a-assets > img")
+                    for (i in images) {
+                        console.log(i)
+                        // if (images[i].id != null && images[i].id.startsWith("slide")) {
+                        //     console.log("TEST")
+                        // }
+                    }
                     for (let i = 1; i <= 22; i++) {
+                        const id = "slide" + ('000' + i).slice(-3)
                         this.slides.push({
-                            id: "#slide" + ('000' + i).slice(-3),
+                            id,
+                            src: "#" + id,
                             pos: "" + i * 1.5 + " 0 -2"
                         })
                     }
@@ -38,10 +46,14 @@
         }
 
 
-        // Slide用のコンポーネントだが、、特に使ってない
         AFRAME.registerComponent('slide', {
             init: function () {
-                console.log(this)
+                //テンプレートがDOMに認識されてしまうので隠す
+                if (this.el.id == "") {
+                    this.el.object3D.visible = false;
+
+                }
+
             },
         });
 
@@ -56,7 +68,6 @@
             <img id="grid" src="https://img.gs/bbdkhfbzkk/stretch/https://i.imgur.com/25P1geh.png"
                 crossorigin="anonymous">
             <img id="sky" src="https://i.imgur.com/WqlqEkq.jpg" crossorigin="anonymous" />
-
             <img id="slide001" src="dist/slide.001.png">
             <img id="slide002" src="dist/slide.002.png">
             <img id="slide003" src="dist/slide.003.png">
@@ -77,14 +88,15 @@
             <img id="slide018" src="dist/slide.018.png">
             <img id="slide019" src="dist/slide.019.png">
             <img id="slide020" src="dist/slide.020.png">
-            <img id="slide020" src="dist/slide.021.png">
-            <img id="slide020" src="dist/slide.022.png">
-
+            <img id="slide021" src="dist/slide.021.png">
+            <img id="slide022" src="dist/slide.022.png">
         </a-assets>
 
 
         <template x-for="slide in slides">
-            <a-plane slide @click="next" width="1.2" :position="slide.pos" :src="slide.id"></a-plane>
+            <a-plane slide @click="next" width="1.2" position="0,-100,0" :position="slide.pos" :id="slide.id"
+                :src="slide.src">
+            </a-plane>
         </template>
 
         <a-camera :position="cameraPos" cursor-visible="true" cursor-scale="2" cursor-color="#red" cursor-opacity="0.5">
