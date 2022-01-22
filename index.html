@@ -10,14 +10,11 @@
                 slides: [{}],
                 init() {
                     let resourceCount = 0
-                    const images = document.querySelectorAll("a-assets > img")
-                    for (i in images) {
-                        console.log(i)
-                        // if (images[i].id != null && images[i].id.startsWith("slide")) {
-                        //     console.log("TEST")
-                        // }
+                    const images = document.querySelectorAll('a-assets > img[id^="slide"]')
+                    if (images) {
+                        resourceCount = images.length
                     }
-                    for (let i = 1; i <= 22; i++) {
+                    for (let i = 1; i <= resourceCount; i++) {
                         const id = "slide" + ('000' + i).slice(-3)
                         this.slides.push({
                             id,
