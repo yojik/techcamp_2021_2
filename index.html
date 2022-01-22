@@ -1,111 +1,112 @@
 <html>
 
 <head>
-    <script src="//unpkg.com/alpinejs" defer></script>
-    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
-    <script>
-        const scene = () => {
-            return {
-                cameraPos: "1 0 0",
-                slides: [{}],
-                init() {
-                    let resourceCount = 0
-                    const images = document.querySelectorAll('a-assets > img[id^="slide"]')
-                    if (images) {
-                        resourceCount = images.length
-                    }
-                    for (let i = 1; i <= resourceCount; i++) {
-                        const id = "slide" + ('000' + i).slice(-3)
-                        this.slides.push({
-                            id,
-                            src: "#" + id,
-                            pos: "" + i * 1.5 + " 0 -2"
-                        })
-                    }
-                },
-                next() {
-                    const pos = strToMap(this.cameraPos)
-                    pos.x = pos.x + 1.5
-                    this.cameraPos = mapToStr(pos)
-                },
-            }
+  <script src="//unpkg.com/alpinejs" defer></script>
+  <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+  <script>
+    const scene = () => {
+      return {
+        cameraPos: "1 0 0",
+        slides: [{}],
+        init() {
+          let resourceCount = 0
+          const images = document.querySelectorAll('a-assets > img[id^="slide"]')
+          if (images) {
+            resourceCount = images.length
+          }
+          for (let i = 1; i <= resourceCount; i++) {
+            const id = "slide" + ('000' + i).slice(-3)
+            this.slides.push({
+              id,
+              src: "#" + id,
+              pos: "" + i * 1.5 + " 0 -2"
+            })
+          }
+        },
+        next() {
+          const pos = strToMap(this.cameraPos)
+          pos.x = pos.x + 1.5
+          this.cameraPos = mapToStr(pos)
+        },
+      }
+    }
+    function strToMap(posStr) {
+      const map = posStr.split(' ');
+      return {
+        x: Number(map[0]),
+        y: Number(map[1]),
+        z: Number(map[2])
+      }
+    }
+    function mapToStr(map) {
+      return map.x + " " + map.y + " " + map.z
+    }
+
+
+    AFRAME.registerComponent('slide', {
+      init: function () {
+        //テンプレートがa-frameに認識されてしまうので隠す
+        if (this.el.id == "") {
+          this.el.object3D.visible = false;
+
         }
-        function strToMap(posStr) {
-            const map = posStr.split(' ');
-            return {
-                x: Number(map[0]),
-                y: Number(map[1]),
-                z: Number(map[2])
-            }
-        }
-        function mapToStr(map) {
-            return map.x + " " + map.y + " " + map.z
-        }
 
+      },
+    });
 
-        AFRAME.registerComponent('slide', {
-            init: function () {
-                //テンプレートがDOMに認識されてしまうので隠す
-                if (this.el.id == "") {
-                    this.el.object3D.visible = false;
-
-                }
-
-            },
-        });
-
-    </script>
+  </script>
 
 
 </head>
 
 <body>
-    <a-scene x-data="scene">
-        <a-assets>
-            <img id="grid" src="https://img.gs/bbdkhfbzkk/stretch/https://i.imgur.com/25P1geh.png"
-                crossorigin="anonymous">
-            <img id="sky" src="https://i.imgur.com/WqlqEkq.jpg" crossorigin="anonymous" />
-            <img id="slide001" src="dist/slide.001.png">
-            <img id="slide002" src="dist/slide.002.png">
-            <img id="slide003" src="dist/slide.003.png">
-            <img id="slide004" src="dist/slide.004.png">
-            <img id="slide005" src="dist/slide.005.png">
-            <img id="slide006" src="dist/slide.006.png">
-            <img id="slide007" src="dist/slide.007.png">
-            <img id="slide008" src="dist/slide.008.png">
-            <img id="slide009" src="dist/slide.009.png">
-            <img id="slide010" src="dist/slide.010.png">
-            <img id="slide011" src="dist/slide.011.png">
-            <img id="slide012" src="dist/slide.012.png">
-            <img id="slide013" src="dist/slide.013.png">
-            <img id="slide014" src="dist/slide.014.png">
-            <img id="slide015" src="dist/slide.015.png">
-            <img id="slide016" src="dist/slide.016.png">
-            <img id="slide017" src="dist/slide.017.png">
-            <img id="slide018" src="dist/slide.018.png">
-            <img id="slide019" src="dist/slide.019.png">
-            <img id="slide020" src="dist/slide.020.png">
-            <img id="slide021" src="dist/slide.021.png">
-            <img id="slide022" src="dist/slide.022.png">
-        </a-assets>
+  <a-scene x-data="scene">
+    <a-assets>
+      <img id="grid" src="https://img.gs/bbdkhfbzkk/stretch/https://i.imgur.com/25P1geh.png" crossorigin="anonymous">
+      <img id="sky" src="https://i.imgur.com/WqlqEkq.jpg" crossorigin="anonymous" />
+      <img id="slide001" src="dist/slide.001.png">
+      <img id="slide002" src="dist/slide.002.png">
+      <img id="slide003" src="dist/slide.003.png">
+      <img id="slide004" src="dist/slide.004.png">
+      <img id="slide005" src="dist/slide.005.png">
+      <img id="slide006" src="dist/slide.006.png">
+      <img id="slide007" src="dist/slide.007.png">
+      <img id="slide008" src="dist/slide.008.png">
+      <img id="slide009" src="dist/slide.009.png">
+      <img id="slide010" src="dist/slide.010.png">
+      <img id="slide011" src="dist/slide.011.png">
+      <img id="slide012" src="dist/slide.012.png">
+      <img id="slide013" src="dist/slide.013.png">
+      <img id="slide014" src="dist/slide.014.png">
+      <img id="slide015" src="dist/slide.015.png">
+      <img id="slide016" src="dist/slide.016.png">
+      <img id="slide017" src="dist/slide.017.png">
+      <img id="slide018" src="dist/slide.018.png">
+      <img id="slide019" src="dist/slide.019.png">
+      <img id="slide020" src="dist/slide.020.png">
+      <img id="slide021" src="dist/slide.021.png">
+      <img id="slide022" src="dist/slide.022.png">
+      <img id="slide023" src="dist/slide.023.png">
+      <img id="slide024" src="dist/slide.024.png">
+    </a-assets>
 
 
-        <template x-for="slide in slides">
-            <a-plane slide @click="next" width="1.2" position="0,-100,0" :position="slide.pos" :id="slide.id"
-                :src="slide.src">
-            </a-plane>
-        </template>
+    <template x-for="slide in slides">
+      <a-plane slide @click="next" width="1.2" position="0,-100,0" :position="slide.pos" :id="slide.id"
+        :src="slide.src">
+      </a-plane>
+    </template>
 
-        <a-camera :position="cameraPos" cursor-visible="true" cursor-scale="2" cursor-color="#red" cursor-opacity="0.5">
-            <a-cursor></a-cursor>
-        </a-camera>
+    <a-camera :position="cameraPos" cursor-visible="true" cursor-scale="2" cursor-color="#red" cursor-opacity="0.5">
+      <a-cursor></a-cursor>
+    </a-camera>
 
-        <a-entity position="0 0 0" geometry="primitive: plane; width: 10000; height: 10000;" rotation="-90 0 0"
-            material="src: #grid; repeat: 10000 10000; transparent: true; metalness:0.6; roughness: 0.4; sphericalEnvMap: #sky;">
-        </a-entity>
-        <a-sky src="#sky" rotation="0 -90 0"></a-sky>
+    <a-entity position="0 0 0" geometry="primitive: plane; width: 10000; height: 10000;" rotation="-90 0 0"
+      material="src: #grid; repeat: 10000 10000; transparent: true; metalness:0.6; roughness: 0.4; sphericalEnvMap: #sky;">
+    </a-entity>
+    <a-sky src="#sky" rotation="0 -90 0"></a-sky>
 
-    </a-scene>
+  </a-scene>
 </body>
 
 </html>
