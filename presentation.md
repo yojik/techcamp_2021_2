@@ -13,31 +13,39 @@ footer: ES 1-1 菅野洋史
 
 あとで解説します。
 
-
+----
 # 今年の計画
 
-##  HTMLマークアップでWebXRを実現するa-frameと、WebSocket/WebRTCを連携させて、仮想空間上の共有ワークスペースを作成する
+##  HTMLマークアップでWebXRを実現するa-frameと、WebSocket/WebRTCを利用し、仮想空間上の共有ワークスペースを作成する
 
 ---- 
-## a-farme 
-HTMLマークアップで仮想空間を構築する仕組み
 
-## websocket/WebRTC
+# a-farme 
 
-これらの仕組みによってVR/XR空間上の共通ワークスペースを作る
+HTMLマークアップでシーン情報を構築すると、WebGLで描画が行われれて、さらにWebXRと連携して仮想空間を構築することができるフレームワーク(ヘッドセットやスマホARに対応)
+
+# Websocket/WebRTC
+
+ブラウザ間(P2P)で各種情報(画像や音声を含む)を交換する。
+
+これらの仕組みによってVR/XR空間上の共通ワークスペースを作る予定だった。
 
 
 ---- 
 # なかなか作業できず。。
+
+AR三目ならべを作ったぐらいで作業中断
 
 ## 大きめの新規案件が始まったため
 
 
 ## 多少のモチベーションの低下
 
-すでに商用レベルで優れたソリューションが多数存在する問題。
+すでに商用レベルで優れたソリューションが多数存在するのでいまさら感がある。
 
 これはテックキャンプに取り組むときの共通の課題です
+
+
 
 --- 
 # 2021年はVR/AR元年
@@ -54,36 +62,22 @@ https://japanese.engadget.com/meta-facebook-185351672.html
 
 ![w:320 h:320](https://www.moguravr.com/wp-content/uploads/2015/12/image201512120118091.jpg)
 
+----
 
---- 
-# VRChatが本格的に流行っている
+# 仮想空間上の共有スペース
 
-### サンリオが音楽フェスをVRChatで開催
-
-https://www.moguravr.com/sanrio-virtual-fes/
-
-### VRChat上の音楽フェス
-
-https://www.moguravr.com/vr-music-fes/
-
-
----
-# 仮想空間上の共有ワークスペース
-
-###  Horizon Workrooms
+#### VRChat
+VRSNS
+####  Horizon Workrooms
 Meta社が提供しているバーチャルワークスペース
-###  Spatial
+####  Spatial
 Oculus Quest2 や最大50人までの無料プランなどを発表
-###  cluster
+####  cluster
 デジタル渋谷などのバーチャルイベントに利用されている
-https://cluster.mu/
-###  バーチャルキャスト
-Vtuber向け配信プラットフォームだが、VRSNSとしての機能を強化していく模様
 
 ----
 
-ここにはいい感じの画像を貼り付ける
-
+![Workrooms](https://about.fb.com/ja/wp-content/uploads/sites/15/2021/08/Horizon-Workrooms-Still-4.jpg?w=1024)
 
 ---- 
 # レッドオーシャンになったVR/VR界隈
@@ -137,58 +131,77 @@ BBCのシャーロックホームズ等で出てきます。
 
 ---
 
-# マークアップでプレゼン資料を作成
-
-
+# Markdownでプレゼン資料を作成
 ## テキストエディタで普通にマークダウンを書きます
 
-(スクリーンショット)
-
+![](images/md.png)
 
 ---
 
-# 特定のディレクトリにjpgとして発行
+# marpというツールでスライド化
+
+### pngにエキスポート
 
 ```
-Status: Downloaded newer image for marpteam/marp-cli:v1.5.0
+gitpod /workspace/techcamp_2022 $ docker run --rm -v $PWD:/home/marp/app/ -e LANG=$LANG -e MARP_USER="$(id -u):$(id -g)"   marpteam/marp-cli:v1.5.0  presentation.md  --allow-local-files true --images   png -o dist/slide.png 
 [  INFO ] Converting 1 markdown...
+[  WARN ] Insecure local file accessing is enabled for conversion from
+          presentation.md.
 [  INFO ] presentation.md => dist/slide.001.png
 [  INFO ] presentation.md => dist/slide.002.png
 [  INFO ] presentation.md => dist/slide.003.png
-
+[  INFO ] presentation.md => dist/slide.004.png
+[  INFO ] presentation.md => dist/slide.005.png
+[  INFO ] presentation.md => dist/slide.006.png
+[  INFO ] presentation.md => dist/slide.007.png
+[  INFO ] presentation.md => dist/slide.008.png
 ```
----
 
-
+----
 # ツール(a-frame)による読み込み
 
 aipine.jsという軽量Webフレームワークも利用しています。
+
+```html
+  <a-scene x-data="scene">
+    <template x-for="slide in slides">
+      <a-plane slide @click="next" width="1.2" position="0,-100,0" :position="slide.pos" :id="slide.id"
+        :src="slide.src">
+      </a-plane>
+    </template>
+
+    <a-camera :position="cameraPos" cursor-visible="true" cursor-scale="2" cursor-color="#red" cursor-opacity="0.5">
+      <a-cursor></a-cursor>
+    </a-camera>
+
+    <a-entity position="0 0 0" geometry="primitive: plane; width: 10000; height: 10000;" rotation="-90 0 0"
+      material="src: #grid; repeat: 10000 10000; transparent: true; metalness:0.6; roughness: 0.4; sphericalEnvMap: #sky;">
+    </a-entity>
+    <a-sky src="#sky" rotation="0 -90 0"></a-sky>
 ```
-
-
-```
-
-
 ---
 # VR空間上のプレゼンツールとして発行
 
-
-スクリーンショット
+今見ているこの画面です。
 
 ---- 
-
 # 上記の作業をGithubActionとして自動化
 
 
-資料をpushすると自動発行
+資料をpushすると自動発行するようになっています。
+
+
 
 ---- 
-
 # 応用
 
-## スライドを観ている人同士をWebSorket/WebRTCで繋いでリアルタイムで反応を共有できたり、、するかもしれない。
+## プレゼン空間内に感想を残すような仕組み
+
+## スライドを観ている人同士をWebSorket/WebRTCで繋いでリアルタイムで反応を共有
 
 
 ---- 
 
-# 
+# 結論
+
+VR/XR系の技術に身構えるのではなく、普段使いできるような気軽な利用法を考えることができた
